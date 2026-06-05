@@ -1765,6 +1765,22 @@ public class ResidencePlayerListener implements Listener {
         event.setCancelled(true);
     }
 
+    private boolean isCauldron(Block block) {
+        if (block == null) {
+            return false;
+        }
+        CMIMaterial mat = CMIMaterial.get(block.getType());
+        switch (mat) {
+        case CAULDRON:
+        case LAVA_CAULDRON:
+        case POWDER_SNOW_CAULDRON:
+        case WATER_CAULDRON:
+            return true;
+        default:
+            return false;
+        }
+    }
+
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
     public void onPlayerBucketEmpty(PlayerBucketEmptyEvent event) {
         // disabling event on world
@@ -1776,7 +1792,7 @@ public class ResidencePlayerListener implements Listener {
             return;
 
         Block clickBlock = event.getBlockClicked();
-        boolean isCauldron = CMIMaterial.get(clickBlock.getType()) == CMIMaterial.CAULDRON;
+        boolean isCauldron = isCauldron(clickBlock);
         // Cauldron uses CauldronLevelChangeEvent for checks on 1.9+
         if (isCauldron && Version.isCurrentEqualOrHigher(Version.v1_9_0)) {
             return;
@@ -1846,7 +1862,7 @@ public class ResidencePlayerListener implements Listener {
         if (ResAdmin.isResAdmin(player))
             return;
         // Cauldron uses CauldronLevelChangeEvent for checks on 1.9+
-        if (Version.isCurrentEqualOrHigher(Version.v1_9_0) && CMIMaterial.get(event.getBlockClicked().getType()) == CMIMaterial.WATER_CAULDRON) {
+        if (Version.isCurrentEqualOrHigher(Version.v1_9_0) && isCauldron(event.getBlockClicked())) {
             return;
         }
         Location loc = event.getBlockClicked().getLocation();
