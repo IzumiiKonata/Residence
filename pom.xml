@@ -77,9 +77,9 @@
 			<scope>provided</scope> 
 		</dependency>
 		<dependency>
-			<groupId>com.github.TheBusyBiscuit</groupId>
+			<groupId>com.github.Slimefun</groupId>
 			<artifactId>Slimefun4</artifactId>
-			<version>82419dca89</version>
+			<version>RC-36</version>
 		    <scope>provided</scope>
 		</dependency>		
 		<!-- Pl3xMap -->
